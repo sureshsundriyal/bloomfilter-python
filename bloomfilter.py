@@ -34,12 +34,13 @@ class BloomFilter(object):
         self.hash_count =  int(math.ceil( # Number of hashes(k)
                                 (self.nbits/capacity) * math.log(2)))
 
-        self.bitarray = bytearray([0] * int(self.nbits/8))
+        self.bitarray = bytearray([0] * (int(self.nbits/8)+1))
         self.items = 0
 
     def add(self, hash):
         hashlist = _hashlist(hash, self.hash_count)
 
+        x = 0
         for hash in hashlist:
             x = hash % self.nbits
             self.bitarray[x//8] |= 1<<(x%8)
