@@ -10,7 +10,7 @@ the resulting 128-bit hexdigest is expected to be passed in to the
 Example:
 --------
 
-```
+```py
 >>> import bloomfilter
 >>> from hashlib import md5
 >>> dig = md5()
@@ -19,4 +19,5 @@ Example:
 >>> bf.add(dig.hexdigest())
 >>> dig.hexdigest() in bf
 True
+
 ```
