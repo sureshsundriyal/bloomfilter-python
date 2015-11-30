@@ -6,21 +6,21 @@
 >>> g = y.split()
 >>> for y in g:
 ...     dig = md5()
-...     dig.update(y)
+...     dig.update(y.encode())
 ...     x.add(dig.hexdigest())
 ...
 >>> allIn = False
 >>> for y in g:
 ...     dig = md5()
-...     dig.update(y)
+...     dig.update(y.encode())
 ...     allIn = dig.hexdigest() in x
 ...     if not allIn:
 ...         break
 ...
->>> print allIn
+>>> allIn
 True
 
 >>> dig = md5()
->>> dig.update('foobar')
+>>> dig.update(b'foobar')
 >>> dig.hexdigest() in x
 False
