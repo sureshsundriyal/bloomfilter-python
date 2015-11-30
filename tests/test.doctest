@@ -1,0 +1,26 @@
+>>> import bloomfilter
+>>> from hashlib import md5
+
+>>> x = bloomfilter.BloomFilter()
+>>> y = open('foo.txt').read()
+>>> g = y.split()
+>>> for y in g:
+...     dig = md5()
+...     dig.update(y)
+...     x.add(dig.hexdigest())
+...
+>>> allIn = False
+>>> for y in g:
+...     dig = md5()
+...     dig.update(y)
+...     allIn = dig.hexdigest() in x
+...     if not allIn:
+...         break
+...
+>>> print allIn
+True
+
+>>> dig = md5()
+>>> dig.update('foobar')
+>>> dig.hexdigest() in x
+False
