@@ -12,7 +12,7 @@ except:
 
 _64_1 = int('1'*64, 2)
 
-def _hashlist(hash, num):
+def _hashlist(hash, hash_count):
     # Takes a 128-bit hash and creates 'num' number of hashes.
     hash = int(hash, 16)
     l = hash >> 64
@@ -20,25 +20,25 @@ def _hashlist(hash, num):
     return list(
                 map(
                     lambda x: (l << 64) | (x*r),
-                    xrange(1, num+1)
+                    xrange(1, hash_count+1)
                 )
            )
 
 class BloomFilter(object):
-    def __init__(self, count=10000, error=0.01):
-        self.count = count # Count(n)
-        self.error = 0.01 # Error(p)
-        self.nbits = (-1*count*math.log(error))/(math.log(2)**2)
+    def __init__(self, capacity=10000, error_rate=0.01):
+        self.capacity = capacity # Count(n)
+        self.error_rate = error_rate # Error(p)
+        self.nbits = (-1*capacity*math.log(error_rate))/(math.log(2)**2)
         self.nbits = int(math.ceil(self.nbits))
         self.nbits += (self.nbits % 8) # Bits (m)
-        self.functions =  int(math.ceil(
-                                (self.nbits/count) * math.log(2)))# Functions(k)
+        self.hash_count =  int(math.ceil( # Number of hashes(k)
+                                (self.nbits/capacity) * math.log(2)))
 
         self.bitarray = bytearray([0] * int(self.nbits/8))
         self.items = 0
 
     def add(self, hash):
-        hashlist = _hashlist(hash, self.functions)
+        hashlist = _hashlist(hash, self.hash_count)
 
         for hash in hashlist:
             x = hash % self.nbits
@@ -47,7 +47,7 @@ class BloomFilter(object):
         self.items += 1
 
     def contains(self, hash):
-        hashlist = _hashlist(hash, self.functions)
+        hashlist = _hashlist(hash, self.hash_count)
 
         for hash in hashlist:
             x = hash % self.nbits
