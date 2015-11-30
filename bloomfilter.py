@@ -30,11 +30,11 @@ class BloomFilter(object):
         self.error_rate = error_rate # Error(p)
         self.nbits = (-1*capacity*math.log(error_rate))/(math.log(2)**2)
         self.nbits = int(math.ceil(self.nbits))
-        self.nbits += (self.nbits % 8) # Bits (m)
+        self.nbits = ((self.nbits // 8) + 1) * 8 # Bits (m)
         self.hash_count =  int(math.ceil( # Number of hashes(k)
                                 (self.nbits/capacity) * math.log(2)))
 
-        self.bitarray = bytearray([0] * (int(self.nbits/8)+1))
+        self.bitarray = bytearray([0] * int(self.nbits/8))
         self.items = 0
 
     def add(self, hash):

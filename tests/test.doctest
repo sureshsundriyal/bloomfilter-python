@@ -7,7 +7,10 @@
 >>> for y in g:
 ...     dig = md5()
 ...     dig.update(y.encode())
-...     x.add(dig.hexdigest())
+...     try:
+...         x.add(dig.hexdigest())
+...     except:
+...         print(y)
 ...
 >>> allIn = False
 >>> for y in g:
