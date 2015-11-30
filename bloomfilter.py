@@ -1,3 +1,7 @@
+__author__ = "Suresh Sundriyal"
+__version__ = "0.0.1"
+__license__ = "BSD 2-clause"
+
 import math
 
 # Fixup for Python3
