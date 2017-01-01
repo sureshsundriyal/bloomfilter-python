@@ -1,0 +1,19 @@
+language: python
+python:
+  - "2.7"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  - "nightly"
+  # PyPy versions
+  - "pypy"
+  - "pypy-5.3.1"
+install:
+  - pip install coverage
+  - pip install coveralls
+# command to run tests
+script:
+  - pushd tests >/dev/null && ./runtests.sh && ./coverage.sh && popd >/dev/null
+after_success:
+  - pushd tests >/dev/null && coveralls && popd >/dev/null
