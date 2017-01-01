@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/sureshsundriyal/bloomfilter-python.svg?branch=master)](https://travis-ci.org/sureshsundriyal/bloomfilter-python)
+[![Coverage Status](https://coveralls.io/repos/github/sureshsundriyal/bloomfilter-python/badge.svg?branch=master)](https://coveralls.io/github/sureshsundriyal/bloomfilter-python?branch=master)
+
 bloomfilter-python
 ==================
 
